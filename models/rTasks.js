@@ -9,4 +9,3 @@ module.exports = function(sequelize, DataTypes) {
     });
     return requested_task;
   };
-  
