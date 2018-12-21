@@ -3,8 +3,6 @@ module.exports = function(sequelize, DataTypes) {
       ID: DataTypes.INTEGER,
       mapsCoords: DataTypes.DECIMAL,
       longAddress: DataTypes.STRING
-
     });
     return address;
   };
-  
