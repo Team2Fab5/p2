@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
     db.user.findAll({}).then(function (dbExamples) {
       res.render("index", {
-        msg: "Welcome!",
+        msg: "Welcome to Neighborly!",
         examples: dbExamples
       });
     });
