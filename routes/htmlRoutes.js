@@ -6,7 +6,7 @@ module.exports = function (app) {
     //for user 
     db.user.findAll({}).then(function (dbExamples) {
       res.render("index", {
-        msg: "Welcome!",
+        msg: "Welcome to Neighborly!",
         examples: dbExamples
       });
 
@@ -65,7 +65,9 @@ module.exports = function (app) {
 
   // Load example page and pass in an example by id
   app.get("/example/:id", function (req, res) {
+
     db.user.findOne({ where: { id: req.params.id } }).then(function (
+
       dbExample
     ) {
       res.render("example", {

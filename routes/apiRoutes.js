@@ -77,12 +77,14 @@ module.exports = function (app) {
 
   // Delete an example by id for user db
   app.delete("/api/examples/:id", function (req, res) {
+
     db.user.destroy({ where: { id: req.params.id } }).then(function (
       dbExample
     ) {
       res.json(dbExample);
     });
   });
+
   //for scores db 
   app.delete("/api/scores/:id", function (req, res) {
     db.scores.destroy({ where: { id: req.params.id } }).then(function (
@@ -127,3 +129,4 @@ module.exports = function (app) {
     });
   });
 };
+
