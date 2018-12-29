@@ -8,16 +8,15 @@ module.exports = function (app) {
         msg: "Welcome to Neighborly!",
         examples: dbExamples
       });
+
     });
   });
 
   // Load example page and pass in an example by id
   app.get("/example/:id", function (req, res) {
-    db.user.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).then(function (
+
+    db.user.findOne({ where: { id: req.params.id } }).then(function (
+
       dbExample
     ) {
       res.render("example", {
