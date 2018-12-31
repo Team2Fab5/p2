@@ -3,23 +3,28 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const db = require("./models");
 
-//added for passport
-// const passport = require("passport");
-// const bodyParser = require("body-parser");
-// const flash = require("connect-flash");
-// const cookieParser = require("cookie-parser");
-// const session = require("express-session");
-
 const app = express();
+
+//added for passport
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const session = require("express-session");
 const PORT = process.env.PORT || 3000;
-require("./config/passport")(passport);
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
+
 //added for passport
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// For Passport
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // Handlebars
 app.engine(
@@ -30,30 +35,11 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-//added for passport
-// app.use(
-//   session({
-//     key: "user_sid",
-//     secret: "goN6DJJC6E287cC77kkdYuNuAyWnz7Q3iZj8",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       expires: 600000
-//     }
-//   })
-// );
-//more passport
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(flash());
-// Routes -- added passport routes
-require("./routes/html-routes")(app);
-// require("./routes/account-controller")(app, passport);
-// require("./routes/item-controller")(app, passport);
-// require("./routes/search-controller")(app, passport);
-// require("./routes/transactions-controller")(app, passport);
+require("./routes/htmlRoutes")(app);
+
 require("./routes/apiRoutes")(app);
-// require("./routes/htmlRoutes")(app);
+//Routes
+var authRoute = require("./routes/auth.js")(app);
 
 var syncOptions = { force: false };
 
