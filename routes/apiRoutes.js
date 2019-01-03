@@ -8,12 +8,31 @@ module.exports = function (app) {
     });
   });
 
+  // Get all users
+  app.get("/api/users", function (req, res) {
+    db.user.findAll({}).then(function (dbExamples) {
+      db.user.findAll({}).then(function (dbExamples) {
+        res.json(dbExamples);
+      })
+    })
+  })
+
   // Create a new example
   app.post("/api/examples", function (req, res) {
     db.user.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
   });
+
+  //Create a new user
+  app.post("api/users", function (req, res) {
+    db.user.create(req.body.username).then(function (dbExample) {
+      res.json({
+        username: result.username
+      });
+    })
+  })
+
 
   // Delete an example by id
   app.delete("/api/examples/:id", function (req, res) {
@@ -28,3 +47,16 @@ module.exports = function (app) {
     });
   });
 };
+
+// Delete a user by id
+// app.delete("/api/users/:id", function (req, res) {
+//   db.user.destroy({
+//     where: {
+//       id: req.params.id
+//     }
+//   }).then(function (
+//     dbExample
+//   ) {
+//     res.json(dbExample);
+//   });
+// });
