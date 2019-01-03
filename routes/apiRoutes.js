@@ -30,7 +30,7 @@ module.exports = function (app) {
     })
   })
 
-  // Create a new example 
+
   //get all for address  
   app.get("/api/address", function (req, res) {
     db.address.findAll({}).then(function (dbExamples) {
@@ -51,27 +51,27 @@ module.exports = function (app) {
       res.json(dbExample);
     });
   });
+
   // for scores
   app.post("/api/scores", function (req, res) {
     db.scores.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
   });
+
   //for requested task 
   app.post("/api/requested_tasks", function (req, res) {
     db.requested_task.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
-
-
   });
+
   //for address 
   app.post("/api/address", function (req, res) {
     db.address.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
-
-
+  });
 
   //Create a new user
   app.post("api/users", function (req, res) {
@@ -83,12 +83,15 @@ module.exports = function (app) {
   })
 
 
-
   // Delete an example by id for user db
 
   app.delete("/api/examples/:id", function (req, res) {
 
-    db.user.destroy({ where: { id: req.params.id } }).then(function (
+    db.user.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
@@ -97,7 +100,11 @@ module.exports = function (app) {
 
   //for scores db 
   app.delete("/api/scores/:id", function (req, res) {
-    db.scores.destroy({ where: { id: req.params.id } }).then(function (
+    db.scores.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
@@ -106,7 +113,11 @@ module.exports = function (app) {
 
   //for the requested task db 
   app.delete("/api/requested_task/:id", function (req, res) {
-    db.requested_task.destroy({ where: { id: req.params.id } }).then(function (
+    db.requested_task.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
@@ -115,7 +126,11 @@ module.exports = function (app) {
 
   //for address 
   app.delete("/api/address/:id", function (req, res) {
-    db.address.destroy({ where: { id: req.params.id } }).then(function (
+    db.address.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
@@ -124,19 +139,27 @@ module.exports = function (app) {
 
   //for compeleted task
   app.delete("/api/completed_task/:id", function (req, res) {
-    db.completed_task.destroy({ where: { id: req.params.id } }).then(function (
+    db.completed_task.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
     });
   });
+
   //for type 
   app.delete("/api/type/:id", function (req, res) {
-    db.type.destroy({ where: { id: req.params.id } }).then(function (
+    db.type.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (
       dbExample
     ) {
       res.json(dbExample);
     });
   });
-};
-
+}
