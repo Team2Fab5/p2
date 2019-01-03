@@ -6,7 +6,8 @@ module.exports = function (app) {
     //for user 
     db.user.findAll({}).then(function (dbExamples) {
       res.render("index", {
-        msg: "Welcome to Neighborly!",
+
+        msg: "Let's find your neighbors!",
         examples: dbExamples
       });
 
@@ -118,6 +119,25 @@ module.exports = function (app) {
     });
 
 
+  });
+
+  //Load user page
+  app.get("/user/:id", function (req, res) {
+    db.user.findOne({
+      where: {
+        id: req.params.id,
+        userId: req.params.userId,
+        username: req.params.username,
+        email: req.params.email,
+        password: req.params.password,
+      }
+    }).then(function (
+      dbExample
+    ) {
+      res.render("user", {
+        example: dbExample
+      });
+    });
   });
 
 

@@ -20,6 +20,17 @@ module.exports = function (app) {
     });
   });
 
+
+  // Get all users
+  app.get("/api/users", function (req, res) {
+    db.user.findAll({}).then(function (dbExamples) {
+      db.user.findAll({}).then(function (dbExamples) {
+        res.json(dbExamples);
+      })
+    })
+  })
+
+  // Create a new example 
   //get all for address  
   app.get("/api/address", function (req, res) {
     db.address.findAll({}).then(function (dbExamples) {
@@ -34,6 +45,7 @@ module.exports = function (app) {
   });
 
   // Create a new example user 
+
   app.post("/api/examples", function (req, res) {
     db.user.create(req.body).then(function (dbExample) {
       res.json(dbExample);
@@ -61,21 +73,19 @@ module.exports = function (app) {
 
 
 
-  });
-  // completed taks
-  app.post("/api/completed_task", function (req, res) {
-    db.completed_task.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
-  //for type 
-  app.get("/api/type", function (req, res) {
-    db.type.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
-    });
-  });
+  //Create a new user
+  app.post("api/users", function (req, res) {
+    db.user.create(req.body.username).then(function (dbExample) {
+      res.json({
+        username: result.username
+      });
+    })
+  })
+
+
 
   // Delete an example by id for user db
+
   app.delete("/api/examples/:id", function (req, res) {
 
     db.user.destroy({ where: { id: req.params.id } }).then(function (
@@ -112,7 +122,7 @@ module.exports = function (app) {
     });
   });
 
-  //for completed task
+  //for compeleted task
   app.delete("/api/completed_task/:id", function (req, res) {
     db.completed_task.destroy({ where: { id: req.params.id } }).then(function (
       dbExample
