@@ -14,7 +14,7 @@ module.exports = (passport, user) => {
         passwordField: "password",
         passReqToCallback: true // allows us to pass back the entire request to the callback
       },
-      (req, username, email, password, done) => {
+      (req, username, password, done) => {
         const generateHash = password => {
           return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
         };
@@ -29,12 +29,12 @@ module.exports = (passport, user) => {
             });
           } else {
             let userPassword = generateHash(password);
-            //set signup fields as variable.
+            //set signup fields as data variable.
             let data = {
               username: req.body.username,
-              email: email,
+              email: req.body.email,
 
-              password: password
+              password: userPassword
 
               // firstname: req.body.firstname,
 
