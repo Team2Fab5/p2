@@ -88,9 +88,9 @@ var handleFormSubmit = function (event) {
     refreshExamples();
   });
 
-  API.saveExample(user).then(function () {
-    refreshExamples();
-  });
+  // API.saveExample(user).then(function () {
+  //   refreshExamples();
+  // });
 
   $exampleText.val("");
   $exampleDescription.val("");
