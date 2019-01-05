@@ -21,7 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // For Passport
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true
+  })
 ); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -35,11 +39,12 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-require("./routes/htmlRoutes")(app);
+require("./routes/htmlRoutes")(app, passport);
 
 require("./routes/apiRoutes")(app);
 //Routes
-var authRoute = require("./routes/auth.js")(app);
+//load passport strategies
+require("./config/passport.js")(passport, db.user);
 
 var syncOptions = { force: false };
 
