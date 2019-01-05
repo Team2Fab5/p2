@@ -77,7 +77,7 @@ module.exports = (passport, user) => {
 
         usernameField: "username",
 
-        passwordField: "password",
+        passwordField: "userPassword",
 
         passReqToCallback: true // allows us to pass back the entire request to the callback
       },
