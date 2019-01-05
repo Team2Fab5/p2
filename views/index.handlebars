@@ -77,22 +77,24 @@
   {{!-- <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
 
-        <h2>Fab5 Home Page! Tom is bizkit</h2>
+        <h2>{{msg}}</h2>
 
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <label for="example-text">What's your name?</label>
+            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Liz Lemon">
           </div>
           <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+            <label for="example-description">Where do you live?</label>
+            <input class="form-control" id="example-description" aria-describedby="example-description" placeholder="123 Main St. Chicago, IL"></input>
+
           </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
+          <button id="submit" class="btn btn-light float-right">
+            <img id="buttonImg" src="img/search.png" />
+          </button>
         </form>
-        <h3>Examples:</h3>
+        <h3>Wow, look at this beautiful map underneath this text:</h3>
         <ul id="example-list" class="list-group">
           {{#each examples}}
           <li data-id="{{this.id}}" class="list-group-item">
