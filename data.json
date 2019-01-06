@@ -1,0 +1,16 @@
+{
+    "users": [{
+            "id": 1,
+            "name": "lindsey"
+        },
+        {
+            "id": 2,
+            "name": "adam"
+        }
+    ],
+    "tasks": [{
+        "taskID": 3,
+        "taskOwner": "adam",
+        "taskAssignee": "lindsey"
+    }]
+}

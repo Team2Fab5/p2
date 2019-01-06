@@ -3,6 +3,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const db = require("./models");
 
+
 const app = express();
 
 //added for passport
@@ -19,7 +20,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //added for passport
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 // For Passport
 app.use(
@@ -45,6 +48,9 @@ require("./routes/htmlRoutes")(app, passport);
 
 require("./routes/apiRoutes")(app);
 //Routes
+
+// app.use('/', routes);
+
 //load passport strategies
 require("./config/passport.js")(passport, db.user);
 
