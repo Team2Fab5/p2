@@ -41,7 +41,8 @@ module.exports = function(app, passport) {
     "/signin",
     passport.authenticate("local-signin", {
       successRedirect: "/dashboard",
-      failureRedirect: "/signin"
+
+      failureRedirect: "404"
     })
   );
   function isLoggedIn(req, res, next) {
@@ -49,7 +50,7 @@ module.exports = function(app, passport) {
     res.redirect("/signup");
   }
   // Render 404 page for any unmatched routes
-  // app.get("*", function(req, res) {
-  //   res.render("404");
-  // });
+  app.get("*", function(req, res) {
+    res.render("404");
+  });
 };
