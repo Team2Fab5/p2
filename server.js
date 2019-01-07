@@ -47,6 +47,9 @@ app.set("view engine", "handlebars");
 require("./routes/htmlRoutes")(app, passport);
 
 require("./routes/apiRoutes")(app);
+
+
+
 //Routes
 
 // app.use('/', routes);
