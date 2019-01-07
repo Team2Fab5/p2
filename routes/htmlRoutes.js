@@ -12,6 +12,11 @@ module.exports = function (app, passport) {
     });
   });
 
+  // Load Neighborhood Page
+  app.get("/neighborhood", function (req, res) {
+    res.render("neighborhood");
+  });
+
   // Load example page and pass in an example by id
   app.get("/user/:username", function (req, res) {
     db.user.findOne({
@@ -20,8 +25,8 @@ module.exports = function (app, passport) {
       }
     }).then(function (dbExample) {
       res.render("user", {
-        username: req.params.username,
-        email: req.params.email
+        username: req.params.username
+        // email: req.params.email
         // address:req.params.address
 
       });
