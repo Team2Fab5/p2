@@ -29,7 +29,21 @@ var API = {
     });
   }
 };
+// $("#login_button").click(function() {
+//   var username = $("username").val();
+//   var password = $("password").val();
+//   alert("email/pass:" + username + ", " + password);
 
+//   $.ajax({
+//     type: "POST",
+//     url: "/signin",
+//     data: { username: username, password: password },
+//     dataType: "html"
+//   }).done(function() {
+//     console.log("http request succeeded");
+//     alert("login success");
+//   });
+// });
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshExamples = function() {
   API.getExamples().then(function(data) {
@@ -69,12 +83,54 @@ var handleFormSubmit = function(event) {
     description: $exampleDescription.val().trim()
   };
 
+  // var user = {
+  //   username: $exampleText.val().trim(),
+  //   address: $exampleText.val().trim()
+  // }
+
   if (!(example.text && example.description)) {
     alert("You must enter an example text and description!");
     return;
   }
 
+  // if (!(user.username && user.address)) {
+  //   alert("You must enter a username and adddress!");
+  //   return;
+  // }
+
   API.saveExample(example).then(function() {
+    refreshExamples();
+  });
+
+  // API.saveExample(user).then(function () {
+  //   refreshExamples();
+  // });
+
+  $exampleText.val("");
+  $exampleDescription.val("");
+};
+
+// // handleFormSubmit is called whenever we submit a new user
+// // Save the new user to the db and refresh the list
+var handleFormSubmit = function(event) {
+  event.preventDefault();
+
+  var example = {
+    text: $exampleText.val().trim(),
+    description: $exampleDescription.val().trim()
+  };
+
+  var user = {
+    username: $exampleText.val().trim(),
+    address: $exampleDescription.val().trim()
+  };
+
+  if (!(example.text && example.description)) {
+    alert("You must enter an example text and description!");
+    return;
+  }
+
+  API.saveExample(user).then(function() {
     refreshExamples();
   });
 
