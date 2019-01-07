@@ -76,13 +76,13 @@ module.exports = (passport, user) => {
         // by default, local strategy uses username and password
 
         usernameField: "username",
-
-        passwordField: "userPassword",
-
+        email: "email",
+        passwordField: "password",
         passReqToCallback: true // allows us to pass back the entire request to the callback
       },
 
       function(req, username, password, done) {
+        console.log("in passport");
         var User = user;
 
         var isValidPassword = function(userpass, password) {

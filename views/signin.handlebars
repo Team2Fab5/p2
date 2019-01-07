@@ -1,10 +1,36 @@
-{{!-- <div id="home"> --}}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Neighborly Login</title>
+</head>
+
+<body>
+    <form id="signin" name="signin" method="post" action="/signin">
+        <label for="username">Username</label>
+        <input class="text" name="username" type="text" />
+        {{!-- <label for="email">Email Address</label>
+        <input class="text" name="email" type="email" /> --}}
+
+        {{!-- <label for="firstname">Firstname</label>
+        <input name="firstname" type="text" />
+        <label for="lastname">Lastname</label>
+        <input name="lastname" type="text" /> --}}
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+        <input class="btn" type="submit" value="Sign In" />
+    </form>
+
+</body>
+
+</html>
+{{!-- <div id="home">
     <section class="login-block">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 login-sec">
                     <h2 class="text-center">Login Now</h2>
-                    <form class="login-form">
+                    <form id="signin" name="signin" method="post" action="/signin">
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="text-uppercase">Username</label>
                             <input type="text" class="form-control" placeholder="">
@@ -21,7 +47,7 @@
                                 <input type="checkbox" class="form-check-input">
                                 <small>Remember Me</small>
                             </label> --}}
-                            <button type="submit" class="btn btn-login float-right">Submit</button>
+                            <button type="submit" class="btn btn-login float-right" id="login_button">Submit</button>
                         </div>
 
                     </form>
@@ -79,7 +105,7 @@
                     </div>
                 </div>
             </div>
-    </section>
+    </section> --}}
     {{!-- <div class="container">
         <div class="row">
             <div class="col-8 offset-2">
