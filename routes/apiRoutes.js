@@ -1,21 +1,21 @@
 const db = require("../models");
 
 module.exports = function (app) {
-  // Get all examples
+  // Get all users
   app.get("/api/users", function (req, res) {
     db.user.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
 
-  // Create a new example
+  // Create a new user
   app.post("/api/users", function (req, res) {
     db.user.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
   });
 
-  // Delete an example by id
+  // Delete a user by id
   app.delete("/api/users/:id", function (req, res) {
     db.user.destroy({
       where: {
