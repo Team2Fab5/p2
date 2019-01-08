@@ -4,7 +4,7 @@ const authController = require("../controllers/authcontroller.js");
 module.exports = function (app, passport) {
   // Load index page
   app.get("/", function (req, res) {
-    db.user.findAll({}).then(function (dbExamples) {
+    db.User.findAll({}).then(function (dbExamples) {
       res.render("index", {
         msg: "Welcome!",
         examples: dbExamples
@@ -19,13 +19,13 @@ module.exports = function (app, passport) {
 
   // Load example page and pass in an example by id
   app.get("/user/:username", function (req, res) {
-    db.user.findOne({
+    db.User.findOne({
       where: {
         username: req.params.username
       }
     }).then(function (dbExample) {
       res.render("user", {
-        username: req.params.username
+        username: req.params.username,
         // email: req.params.email
         // address:req.params.address
 

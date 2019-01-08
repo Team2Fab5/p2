@@ -3,7 +3,6 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const db = require("./models");
 
-
 const app = express();
 
 //added for passport
@@ -55,10 +54,10 @@ require("./routes/apiRoutes")(app);
 // app.use('/', routes);
 
 //load passport strategies
-require("./config/passport.js")(passport, db.user);
+require("./config/passport.js")(passport, db.User);
 
 var syncOptions = {
-  force: false
+  force: true
 };
 
 // If running a test, set syncOptions.force to true
@@ -69,14 +68,17 @@ if (process.env.NODE_ENV === "test") {
 
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function () {
-  app.listen(PORT, function () {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
+db.sequelize
+  .sync(syncOptions)
+  .then(function () {
+    app
+      .listen(PORT, function () {
+        console.log(
+          "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+          PORT,
+          PORT
+        );
+      });
   });
-});
 
 module.exports = app;

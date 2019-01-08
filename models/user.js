@@ -1,10 +1,21 @@
 module.exports = function (sequelize, DataTypes) {
-  var user = sequelize.define("user", {
+  var User = sequelize.define("User", {
     userId: DataTypes.INTEGER,
     username: DataTypes.STRING,
     // addressId: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING
   });
-  return user;
+
+
+  // User.associate = function (models) {
+  //   User.hasMany(models.User, {
+  //     as: "Neighbors",
+  //     foreignKey: "NeighborId"
+  //   });
+  //   User.belongsToMany(models.User, {
+  //     through: "Neighbors"
+  //   })
+  // };
+  return User;
 };

@@ -2,6 +2,7 @@ const bCrypt = require("bcrypt-nodejs");
 // const passport = require("passport");
 
 module.exports = (passport, user) => {
+  console.log(user, "is the user showing?");
   var User = user;
   var LocalStrategy = require("passport-local").Strategy;
 
@@ -17,6 +18,7 @@ module.exports = (passport, user) => {
         const generateHash = password => {
           return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
         };
+
         User.findOne({
           where: {
             username: username
