@@ -3,11 +3,13 @@ const authController = require("../controllers/authcontroller.js");
 
 module.exports = function (app, passport) {
   // Load index page
-  app.get("/", function (req, res) {
-    db.user.findAll({}).then(function (dbExamples) {
+  
+  app.get("/", function(req, res) {
+    db.user.findAll({}).then(function(userInfo) {
+ 
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        examples: userInfo
       });
     });
   });
@@ -41,6 +43,34 @@ module.exports = function (app, passport) {
   );
   app.get("/dashboard", isLoggedIn, authController.dashboard);
   app.get("/logout", authController.logout);
+  // app.get("/user", isLoggedIn, authController.user).then(function(req, res) {
+  //   console.log(req.user);
+  //   res.render("user", { id: req.user.username });
+  // });
+  app.get(
+    "/user",
+    //isLoggedIn, authController.user,
+    function(req, res) {
+      console.log("we got past the first function");
+      db.user.findAll({ where: { id: 20 } }).then(function(data) {
+        console.log("hi user", data[0].username);
+        res.render("user", {
+          username: data[0].username,
+          id: data[0].id
+        });
+      });
+    }
+  );
+  // app.get("/", function(req, res) {
+  //   db.user.findAll({}).then(function(userInfo) {
+  //     console.log("the dude abides", userInfo);
+  //     res.render("index", {
+  //       msg: "Welcome!",
+  //       examples: userInfo
+  //     });
+  //   });
+  // });
+  // Create all our routes and set up logic within those routes where required.
 
   app.post(
     "/signin",
