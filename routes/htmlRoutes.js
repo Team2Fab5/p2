@@ -1,16 +1,22 @@
 var db = require("../models");
 const authController = require("../controllers/authcontroller.js");
 
-module.exports = function(app, passport) {
+module.exports = function (app, passport) {
   // Load index page
+  
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(userInfo) {
-      console.log("the dude abides", userInfo);
+ 
       res.render("index", {
         msg: "Welcome!",
         examples: userInfo
       });
     });
+  });
+
+  // Load Neighborhood Page
+  app.get("/neighborhood", function (req, res) {
+    res.render("neighborhood");
   });
 
   // Load example page and pass in an example by id
@@ -79,7 +85,7 @@ module.exports = function(app, passport) {
     res.redirect("/signup");
   }
   // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
+  app.get("*", function (req, res) {
     res.render("404");
   });
 };
