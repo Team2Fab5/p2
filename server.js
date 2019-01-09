@@ -19,7 +19,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //added for passport
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 // For Passport
 app.use(
@@ -44,12 +46,18 @@ app.set("view engine", "handlebars");
 require("./routes/htmlRoutes")(app, passport);
 
 require("./routes/apiRoutes")(app);
+
+
+
 //Routes
+
+// app.use('/', routes);
+
 //load passport strategies
-require("./config/passport.js")(passport, db.user);
+require("./config/passport.js")(passport, db.User);
 
 var syncOptions = {
-  force: false
+  force: true
 };
 
 // If running a test, set syncOptions.force to true
@@ -60,14 +68,17 @@ if (process.env.NODE_ENV === "test") {
 
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function () {
-  app.listen(PORT, function () {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
+db.sequelize
+  .sync(syncOptions)
+  .then(function () {
+    app
+      .listen(PORT, function () {
+        console.log(
+          "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+          PORT,
+          PORT
+        );
+      });
   });
-});
 
 module.exports = app;
