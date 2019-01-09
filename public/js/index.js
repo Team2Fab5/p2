@@ -16,25 +16,9 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  saveTask: function() {
-    return $.ajax({
-      headr: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/tasks",
-      data: JSON.stringify(task)
-    });
-  },
   getExamples: function() {
     return $.ajax({
-      url: "api/examples",
-      type: "GET"
-    });
-  },
-  getTasks: function() {
-    return $.ajax({
-      url: "api/tasks",
+      url: "api/",
       type: "GET"
     });
   },
