@@ -61,7 +61,8 @@ module.exports = function (app, passport) {
         console.log("hi user", data[0].username);
         res.render("user", {
           username: data[0].username,
-          id: data[0].id
+          // id: data[0].id,
+          address: data[0].address
         });
       });
   });
