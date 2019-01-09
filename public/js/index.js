@@ -22,6 +22,12 @@ var API = {
       type: "GET"
     });
   },
+  getTasks: function() {
+    return $.ajax({
+      url: "api/tasks",
+      type: "GET"
+    });
+  },
   deleteExample: function(id) {
     return $.ajax({
       url: "api/examples/" + id,

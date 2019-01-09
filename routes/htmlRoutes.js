@@ -15,6 +15,15 @@ module.exports = function (app, passport) {
     });
   });
 
+  app.get("/tasks", function (req, res) {
+    db.requested_task.findAll({}).then(function (dbTasks) {
+      res.render("task", {
+        msg: "Here are your tasks",
+        tasks: dbTasks
+      });
+    });
+  });
+
   // Load Neighborhood Page
   app.get("/neighborhood", function (req, res) {
     res.render("neighborhood");
@@ -62,6 +71,8 @@ module.exports = function (app, passport) {
         res.render("user", {
           username: data[0].username,
           id: data[0].id
+          // id: data[0].id,
+          address: data[0].address
         });
       });
   });
@@ -74,7 +85,16 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
+  app.get("/task", authController.task);
+  app.get("/dashboard", authController.dashboard);
 
+  app.post(
+    "/signin",
+    passport.authenticate("local-signin", {
+      successRedirect: "/task",
+      failureRedirect: "404"
+    })
+  );
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/signup");
