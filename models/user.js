@@ -1,8 +1,10 @@
+// module.exports = function (sequelize, DataTypes) {
+//   var User = sequelize.define("User", {
+//     userId: DataTypes.INTEGER,
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    userId: DataTypes.INTEGER,
+    // userId: DataTypes.INTEGER,
     username: DataTypes.STRING,
-    // addressId: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING
   });

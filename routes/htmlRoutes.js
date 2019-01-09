@@ -3,11 +3,14 @@ const authController = require("../controllers/authcontroller.js");
 
 module.exports = function (app, passport) {
   // Load index page
+  // app.get("/", function (req, res) {
+  //   db.User.findAll({}).then(function (dbExamples) {
+
   app.get("/", function (req, res) {
-    db.User.findAll({}).then(function (dbExamples) {
+    db.User.findAll({}).then(function (userInfo) {
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        examples: userInfo
       });
     });
   });
@@ -45,6 +48,23 @@ module.exports = function (app, passport) {
   );
   app.get("/dashboard", isLoggedIn, authController.dashboard);
   app.get("/logout", authController.logout);
+
+  app.get("/user", isLoggedIn, function (req, res) {
+    console.log("just passport", req.session);
+    db.User
+      .findAll({
+        where: {
+          id: req.session.passport.user
+        }
+      })
+      .then(function (data) {
+        console.log("hi user", data[0].username);
+        res.render("user", {
+          username: data[0].username,
+          id: data[0].id
+        });
+      });
+  });
 
   app.post(
     "/signin",
