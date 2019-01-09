@@ -27,4 +27,9 @@ module.exports = function (app) {
       res.json(dbExample);
     });
   });
+
+  // Create tasks route
+  app.get("/api/tasks", function (req, res) {
+    db.rTask.find({}).then(result => { res.send(result) })
+  })
 };
