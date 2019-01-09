@@ -41,10 +41,12 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-require("./routes/htmlRoutes")(app, passport);
-
-require("./routes/apiRoutes")(app);
 //Routes
+require("./routes/htmlRoutes")(app, passport);
+require("./routes/apiRoutes")(app);
+require("./routes/taskApiRoutes")(app);
+require("./routes/userApiRoutes")(app);
+
 //load passport strategies
 require("./config/passport.js")(passport, db.user);
 

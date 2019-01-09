@@ -1,9 +1,27 @@
 module.exports = function(sequelize, DataTypes) {
-    var type = sequelize.define("type", {
-      taskType: DataTypes.INTEGER,
-      taskTitle: DataTypes.STRING,
-      taskDescr: DataTypes.STRING,
-      taskPoints: DataTypes.INTEGER
+    var Type = sequelize.define("Type", {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [1]
+        }
+      },
+      body: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        len: [1]
+      }
     });
-    return type;
+
+    Type.associate = function(models) {
+      // We're saying that a Type should belong to an User
+      // A Type can't be created without an User due to the foreign key constraint
+      Type.belongsTo(models.User, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    };
+    return Type;
   };

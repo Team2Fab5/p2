@@ -1,40 +1,35 @@
 <div class="form-group">
     <label for="exampleFormControlTextarea1">Add a task for your friendly neighbors to help out with!</label>
   </div>
-
-  <div class="col-md-6 text-center" class="task">
-			<div class="row">
-			  {{#each task_data}}
-			  	{{#unless this.completed}}
-				<div class="col-md-9 text-center">
-					<pre>{{this.userId}}. {{this.taskType}}
-					</pre>
-				</div>
-				<div class="col-md-3 text-center">
-					<form class="devour-form button-size">
-						<input input type="hidden" class="taskType" type="text" value={{this.userId}}><br>
-						<button type="submit" class="btn btn-primary">Submit task</button>
-					</form>
-				</div>
-				{{/unless}}
-			  {{/each}}
+  <div class="container hidden">
+		<div class="row top-30">
+      <div class="col-md-2 col-sm-2">
+        <a class="btn btn-light" href="/dis">Go to Tasks</a>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <a class="btn btn-light" href="/users">Manage Users</a>
+      </div>
+    </div>
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<form id="cms">
+					<div class="form-group">
+						<label for="title">Title:</label>
+						<input placeholder="Task Title" type="text" class="form-control" id="title">
+						<br />
+						<label for="body">Body:</label>
+						<textarea placeholder="Task Body" class="form-control" rows="10" id="body"></textarea>
+						    <div class="form-group">
+							    <label for="category">Select User:</label>
+							    <select class="custom-select" id="user">
+  						        </select>
+						    </div>
+						<br />
+						<button type="submit" class="btn btn-success submit">Submit</button>
+					</div>
+				</form>
 			</div>
 		</div>
-		<div class="col-md-6 text-center" class="task">
-			  {{#each task_data}}
-			  	{{#if this.completed}}
-			  		<input class="form-control" type="text" placeholder="{{this.userId}} . {{this.taskType}}" readonly>
-				{{/if}}
-			  {{/each}}
-		</div>
 	</div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 text-center enter_section">
-			<form action="/tasks" method="POST">
-				<input type="text" class="form-control" name="taskType" value="" id="enter_text">
-				<button type="submit" class="btn btn-primary" id="text-enter-button">Submit</button>
-			</form>
-		</div>
-	</div>
-</div>
+	<!-- Custom Script -->
+	<script src="/public/js/task.js" type="text/javascript"></script>

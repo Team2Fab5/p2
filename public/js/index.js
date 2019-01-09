@@ -16,7 +16,7 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  saveTask: function() {
+  saveTask: function(task) {
     return $.ajax({
       headr: {
         "Content-Type": "application/json"

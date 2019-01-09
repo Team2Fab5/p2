@@ -15,6 +15,18 @@ exports.task = function(req, res) {
   res.render("task");
 };
 
+exports.tasks = function(req, res) {
+  res.render("tasks");
+};
+
+exports.users = function(req, res) {
+  res.render("users");
+};
+
+exports.dis = function(req, res) {
+  res.render("dis");
+};
+
 exports.logout = function(req, res) {
   req.session.destroy(function(err) {
     res.redirect("/");

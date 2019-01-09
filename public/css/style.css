@@ -96,3 +96,50 @@
 .banner-text p {
   color: #fff;
 }
+button.submit {
+  float: right;
+}
+
+form#dis {
+  margin-top: 50px;
+}
+
+#dis textarea {
+  resize: none;
+}
+
+.card-header button.delete,
+button.edit {
+  float: right;
+  margin: 5px;
+}
+
+.user-container {
+  margin-top: 50px;
+}
+
+.user-list {
+  margin-top: 25px;
+}
+
+.task-container {
+  margin-top: 30px;
+}
+
+.task {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
+}
+
+#user-name {
+  width: 100%;
+  height: 35px;
+  margin-top: 5px;
+}
+
+.top-30 {
+  margin-top: 30px;
+}

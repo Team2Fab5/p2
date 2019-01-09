@@ -1,26 +1,17 @@
 var db = require("../models");
 const authController = require("../controllers/authcontroller.js");
-const task = require("../models/rTasks");
 
 module.exports = function (app, passport) {
   // Load index page
   app.get("/", function (req, res) {
-    db.user.findAll({}).then(function (dbExamples) {
+    db.User.findAll({}).then(function (dbExamples) {
       res.render("index", {
         msg: "Welcome!",
         examples: dbExamples
       });
     });
   });
-
-  app.get("/tasks", function (req, res) {
-    db.requested_task.findAll({}).then(function (dbTasks) {
-      res.render("task", {
-        msg: "Here are your tasks",
-        tasks: dbTasks
-      });
-    });
-  });
+  
 
   // Load Neighborhood Page
   app.get("/neighborhood", function (req, res) {
@@ -70,6 +61,37 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
+  app.get("/dis", authController.dis);
+  app.get("/task", authController.task);
+
+  app.post(
+    "/signin",
+    passport.authenticate("local-signin", {
+      successRedirect: "/dis",
+      failureRedirect: "404"
+    })
+  );
+  app.get("/tasks", authController.tasks);
+  app.get("/dis", authController.dis);
+
+  app.post(
+    "/signin",
+    passport.authenticate("local-signin", {
+      successRedirect: "/tasks",
+      failureRedirect: "404"
+    })
+  );
+  app.get("/users", authController.tasks);
+  app.get("/tasks", authController.dis);
+
+  app.post(
+    "/signin",
+    passport.authenticate("local-signin", {
+      successRedirect: "/users",
+      failureRedirect: "404"
+    })
+  );
+
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/signup");
