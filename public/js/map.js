@@ -22,6 +22,7 @@ function showPosition(position) {
     var locations = [
         ['User 1', position.coords.latitude, position.coords.longitude, 4],
         ['User 2', position.coords.latitude - .0010, position.coords.longitude + .0010, 5],
+        ['User 3', position.coords.latitude + .0020, position.coords.longitude - .0015, 3],
         ['User 3', position.coords.latitude + .0020, position.coords.longitude + .0015, 3],
         ['User 4', position.coords.latitude - .0030, position.coords.longitude + .0030, 2],
         ['User 5', position.coords.latitude - .0031, position.coords.longitude - .0025, 1]

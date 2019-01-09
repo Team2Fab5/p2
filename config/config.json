@@ -3,6 +3,7 @@
     "username": "teamuser",
     "password": "root",
     "database": "p2",
+    "port": "null",
     "host": "localhost",
     "dialect": "mysql"
   },

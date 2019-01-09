@@ -8,6 +8,14 @@ module.exports = function (sequelize, DataTypes) {
     email: DataTypes.STRING,
     password: DataTypes.STRING
   });
-
+  // User.associate = function (models) {
+  //   User.hasMany(models.User, {
+  //     as: "Neighbors",
+  //     foreignKey: "NeighborId"
+  //   });
+  //   User.belongsToMany(models.User, {
+  //     through: "Neighbors"
+  //   })
+  // };
   return User;
 };
