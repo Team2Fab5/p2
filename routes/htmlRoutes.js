@@ -1,6 +1,5 @@
 var db = require("../models");
 const authController = require("../controllers/authcontroller.js");
-const task = require("../models/rTasks");
 
 module.exports = function (app, passport) {
   // Load index page
@@ -72,6 +71,8 @@ module.exports = function (app, passport) {
         res.render("user", {
           username: data[0].username,
           id: data[0].id
+          // id: data[0].id,
+          address: data[0].address
         });
       });
   });
@@ -84,7 +85,6 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
-
   app.get("/task", authController.task);
   app.get("/dashboard", authController.dashboard);
 
@@ -95,7 +95,6 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
-
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/signup");
