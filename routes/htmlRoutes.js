@@ -72,7 +72,7 @@ module.exports = function (app, passport) {
           username: data[0].username,
           id: data[0].id
           // id: data[0].id,
-          address: data[0].address
+          // address: data[0].address
         });
       });
   });
@@ -95,6 +95,7 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
+
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/signup");
