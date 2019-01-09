@@ -1,5 +1,6 @@
 var db = require("../models");
 const authController = require("../controllers/authcontroller.js");
+const task = require("../models/rTasks");
 
 module.exports = function (app, passport) {
   // Load index page
@@ -11,6 +12,15 @@ module.exports = function (app, passport) {
       res.render("index", {
         msg: "Welcome!",
         examples: userInfo
+      });
+    });
+  });
+
+  app.get("/tasks", function (req, res) {
+    db.requested_task.findAll({}).then(function (dbTasks) {
+      res.render("task", {
+        msg: "Here are your tasks",
+        tasks: dbTasks
       });
     });
   });
@@ -71,6 +81,17 @@ module.exports = function (app, passport) {
     passport.authenticate("local-signin", {
       successRedirect: "/dashboard",
 
+      failureRedirect: "404"
+    })
+  );
+
+  app.get("/task", authController.task);
+  app.get("/dashboard", authController.dashboard);
+
+  app.post(
+    "/signin",
+    passport.authenticate("local-signin", {
+      successRedirect: "/task",
       failureRedirect: "404"
     })
   );
