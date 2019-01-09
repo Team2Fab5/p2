@@ -11,6 +11,10 @@ exports.dashboard = function(req, res) {
   res.render("dashboard");
 };
 
+exports.task = function(req, res) {
+  res.render("task");
+};
+
 exports.logout = function(req, res) {
   req.session.destroy(function(err) {
     res.redirect("/");
