@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     taskType: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     points: DataTypes.INTEGER,
-    completed: DataTypes.BOOLEAN,
+    taskStatus: DataTypes.INTEGER,
     actionDate: DataTypes.DATE
   });
 

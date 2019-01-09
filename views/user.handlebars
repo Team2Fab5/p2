@@ -1,4 +1,13 @@
+<div class="topnav">
+    <img src="img/logo.png" id="logo" />
+    <a href="/logout" id="navlink">Logout</a>
+    <a href="/neighborhood" id="navlink">Neighborhood</a>
+    <a href="/task" id="navlink">Tasks</a>
+    <a href="/user" id="navlink">Profile</a>
+
+</div>
 <div class="container">
+    <button><a href="/logout">Logout</a></button>
     <div class="row">
         <div class="col-8 offset-2">
             <div class="card mt-4">
@@ -6,12 +15,12 @@
                     <h5 class="card-title">My Profile</h5>
                     <img src="../img/user3.png" class="rounded-circle" alt="Profile Image">
                     <p>
-                        <strong>ID</strong>: {{user.id}}</p>
+                        <strong>ID</strong>: {{id}}</p>
+
                     <p>
-                        <p>
-                            <strong>Username</strong>: {{user.username}}</p>
-                        <p>
-                            <strong>Address</strong>: {{user.address}}</p>
+                        <strong>Username</strong>: {{username}}</p>
+                    <p>
+                        <strong>Address</strong>: {{address}}</p>
                 </div>
             </div>
         </div>
@@ -44,5 +53,10 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <a href="/">← Back To Home</a>
 </div>
+=======
+    <a href="/dashboard">← Back To Home</a>
+</div>
+>>>>>>> d6c0c10037eeb2db1068c437883726a8d33f9384

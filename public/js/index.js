@@ -28,7 +28,7 @@ var API = {
   },
   getExamples: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/",
       type: "GET"
     });
   },

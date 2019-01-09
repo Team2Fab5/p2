@@ -11,7 +11,6 @@ module.exports = function (app, passport) {
       });
     });
   });
-  
 
   // Load Neighborhood Page
   app.get("/neighborhood", function (req, res) {

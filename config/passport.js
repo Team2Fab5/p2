@@ -2,13 +2,13 @@ const bCrypt = require("bcrypt-nodejs");
 // const passport = require("passport");
 
 module.exports = (passport, user) => {
+  console.log(user, "is the user showing?");
   var User = user;
   var LocalStrategy = require("passport-local").Strategy;
 
   passport.use(
     "local-signup",
-    new LocalStrategy(
-      {
+    new LocalStrategy({
         usernameField: "username",
         email: "email",
         passwordField: "password",
@@ -18,6 +18,7 @@ module.exports = (passport, user) => {
         const generateHash = password => {
           return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
         };
+
         User.findOne({
           where: {
             username: username
@@ -33,11 +34,9 @@ module.exports = (passport, user) => {
             let data = {
               username: req.body.username,
               email: req.body.email,
-
               password: userPassword
 
               // firstname: req.body.firstname,
-
               // lastname: req.body.lastname
             };
             //pass data variable to user table
@@ -56,11 +55,11 @@ module.exports = (passport, user) => {
     )
   );
   //serialize
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
-  passport.deserializeUser(function(id, done) {
-    User.findById(id).then(function(user) {
+  passport.deserializeUser(function (id, done) {
+    User.findById(id).then(function (user) {
       if (user) {
         done(null, user.get());
       } else {
@@ -71,8 +70,7 @@ module.exports = (passport, user) => {
   //LOCAL SIGNIN
   passport.use(
     "local-signin",
-    new LocalStrategy(
-      {
+    new LocalStrategy({
         // by default, local strategy uses username and password
 
         usernameField: "username",
@@ -81,20 +79,20 @@ module.exports = (passport, user) => {
         passReqToCallback: true // allows us to pass back the entire request to the callback
       },
 
-      function(req, username, password, done) {
+      function (req, username, password, done) {
         console.log("in passport");
         var User = user;
 
-        var isValidPassword = function(userpass, password) {
+        var isValidPassword = function (userpass, password) {
           return bCrypt.compareSync(password, userpass);
         };
 
         User.findOne({
-          where: {
-            username: username
-          }
-        })
-          .then(function(user) {
+            where: {
+              username: username
+            }
+          })
+          .then(function (user) {
             if (!user) {
               return done(null, false, {
                 message: "User does not exist"
@@ -110,7 +108,7 @@ module.exports = (passport, user) => {
             var userinfo = user.get();
             return done(null, userinfo);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log("Error:", err);
 
             return done(null, false, {
