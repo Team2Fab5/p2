@@ -57,13 +57,13 @@ require("./routes/apiRoutes")(app);
 require("./config/passport.js")(passport, db.User);
 
 var syncOptions = {
-  force: true
+  force: false
 };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
+  syncOptions.force = false;
 }
 
 
