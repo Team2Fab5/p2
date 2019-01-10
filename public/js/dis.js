@@ -1,141 +1,134 @@
 $(document).ready(function() {
-    /* global moment */
-    // taskContainer holds all of our tasks
-    var taskContainer = $(".task-container");
-    var taskCategorySelect = $("#category");
-    // Click events for the edit and delete buttons
-    $(document).on("click", "button.delete", handleTaskDelete);
-    $(document).on("click", "button.edit", handleTaskEdit);
-    // Variable to hold our tasks
-    var types;
-  
-    // The code below handles the case where we want to get display of tasks for a specific user
-    // Looks for a query param in the url for user_id
-    var url = window.location.search;
-    var userId;
-    if (url.indexOf("?user_id=") !== -1) {
-      userId = url.split("=")[1];
-      getTasks(userId);
+  // Getting jQuery references to the post body, title, form, and user select
+  var bodyInput = $("#body");
+  var titleInput = $("#title");
+  var disForm = $("#dis");
+  var userSelect = $("#user");
+  // Adding an event listener for when the form is submitted
+  $(disForm).on("submit", handleFormSubmit);
+  // Gets the part of the url that comes after the "?" (which we have if we're updating a task)
+  var url = window.location.search;
+  var typeId;
+  var userId;
+  // Sets a flag for whether or not we're updating a task to be false initially
+  var updating = false;
+
+  // If we have this section in our url, we pull out the task id from the url
+  // In '?type_id=1', typeId is 1
+  if (url.indexOf("?type_id=") !== -1) {
+    typeId = url.split("=")[1];
+    getTaskData(typeId, "type");
+  }
+  // Otherwise if we have an user_id in our url, preset the user select box to be our user
+  else if (url.indexOf("?user_id=") !== -1) {
+    userId = url.split("=")[1];
+  }
+
+  // Getting the users, and their tasks
+  getUsers();
+
+  // A function for handling what happens when the form to create a new task is submitted
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    // Wont submit the task if we are missing a body, title, or user
+    if (!titleInput.val().trim() || !bodyInput.val().trim() || !userSelect.val()) {
+      return;
     }
-    // If there's no userId we just get all tasks as usual
+    // Constructing a newType object to hand to the database
+    var newType = {
+      title: titleInput
+        .val()
+        .trim(),
+      body: bodyInput
+        .val()
+        .trim(),
+      UserId: userSelect.val()
+    };
+
+    // If we're updating a task run updateType to update a task
+    // Otherwise run submitType to create a whole new task
+    if (updating) {
+      newType.id = typeId;
+      updateType(newType);
+    }
     else {
-      getTasks();
+      submitType(newType);
     }
-  
-  
-    // This function grabs tasks from the database and updates the view
-    function getTasks(user) {
-      userId = user || "";
-      if (userId) {
-        userId = "/?user_id=" + userId;
+  }
+
+  // Submits a new task and brings user to task page upon completion
+  function submitType(type) {
+    $.post("/api/tasks", type, function() {
+      window.location.href = "/task";
+    });
+  }
+
+  // Gets post data for the current task if we're editing, or if we're adding to an user's existing tasks
+  function getTaskData(id, type) {
+    var queryUrl;
+    switch (type) {
+    case "type":
+      queryUrl = "/api/tasks/" + id;
+      break;
+    case "user":
+      queryUrl = "/api/users/" + id;
+      break;
+    default:
+      return;
+    }
+    $.get(queryUrl, function(data) {
+      if (data) {
+        console.log(data.UserId || data.id);
+        // If this task exists, prefill our dis forms with its data
+        titleInput.val(data.title);
+        bodyInput.val(data.body);
+        userId = data.UserId || data.id;
+        // If we have a task with this id, set a flag for us to know to update the task
+        // when we hit submit
+        updating = true;
       }
-      $.get("/api/tasks" + userId, function(data) {
-        console.log("tasks", data);
-        types = data;
-        if (!types || !types.length) {
-          displayEmpty(user);
-        }
-        else {
-          initializeRows();
-        }
+    });
+  }
+
+  // A function to get Users and then render our list of Users
+  function getUsers() {
+    $.get("/api/users", renderUserList);
+  }
+  // Function to either render a list of users, or if there are none, direct the user to the page
+  // to create an author first
+  function renderUserList(data) {
+    if (!data.length) {
+      window.location.href = "/users";
+    }
+    $(".hidden").removeClass("hidden");
+    var rowsToAdd = [];
+    for (var i = 0; i < data.length; i++) {
+      rowsToAdd.push(createUserRow(data[i]));
+    }
+    userSelect.empty();
+    console.log(rowsToAdd);
+    console.log(userSelect);
+    userSelect.append(rowsToAdd);
+    userSelect.val(userId);
+  }
+
+  // Creates the user options in the dropdown
+  function createUserRow(user) {
+    var listOption = $("<option>");
+    listOption.attr("value", user.id);
+    listOption.text(user.name);
+    return listOption;
+  }
+
+  // Update a given task, bring user to the task page when done
+  function updateType(type) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/tasks",
+      data: type
+    })
+      .then(function() {
+        window.location.href = "/task";
       });
-    }
-  
-    // This function does an API call to delete tasks
-    function deleteTask(id) {
-      $.ajax({
-        method: "DELETE",
-        url: "/api/tasks/" + id
-      })
-        .then(function() {
-          getTasks(taskCategorySelect.val());
-        });
-    }
-  
-    // InitializeRows handles appending all of our constructed task HTML inside taskContainer
-    function initializeRows() {
-      taskContainer.empty();
-      var tasksToAdd = [];
-      for (var i = 0; i < types.length; i++) {
-        tasksToAdd.push(createNewRow(types[i]));
-      }
-      taskContainer.append(tasksToAdd);
-    }
-  
-    // This function constructs a task's HTML
-    function createNewRow(type) {
-      var formattedDate = new Date(type.createdAt);
-      formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-      var newTaskCard = $("<div>");
-      newTaskCard.addClass("card");
-      var newTaskCardHeading = $("<div>");
-      newTaskCardHeading.addClass("card-header");
-      var deleteBtn = $("<button>");
-      deleteBtn.text("completed");
-      deleteBtn.addClass("delete btn btn-danger");
-      var editBtn = $("<button>");
-      editBtn.text("EDIT");
-      editBtn.addClass("edit btn btn-info");
-      var newTaskTitle = $("<h2>");
-      var newTaskDate = $("<small>");
-      var newTaskUser = $("<h5>");
-      newTaskUser.text("Written by: " + type.User.username);
-      newTaskUser.css({
-        float: "right",
-        color: "blue",
-        "margin-top":
-        "-30px"
-      });
-      var newTaskCardBody = $("<div>");
-      newTaskCardBody.addClass("card-body");
-      var newTaskBody = $("<p>");
-      newTaskTitle.text(type.title + " ");
-      newTaskBody.text(type.body);
-      newTaskDate.text(formattedDate);
-      newTaskTitle.append(newTaskDate);
-      newTaskCardHeading.append(deleteBtn);
-      newTaskCardHeading.append(editBtn);
-      newTaskCardHeading.append(newTaskTitle);
-      newTaskCardHeading.append(newTaskUser);
-      newTaskCardBody.append(newTaskBody);
-      newTaskCard.append(newTaskCardHeading);
-      newTaskCard.append(newTaskCardBody);
-      newTaskCard.data("task", type);
-      return newTaskCard;
-    }
-  
-    // This function figures out which post we want to delete and then calls deleteTask
-    function handleTaskDelete() {
-      var currentTask = $(this)
-        .parent()
-        .parent()
-        .data("task");
-      deleteTask(currentTask.id);
-    }
-  
-    // This function figures out which task we want to edit and takes it to the appropriate url
-    function handleTaskEdit() {
-      var currentTask = $(this)
-        .parent()
-        .parent()
-        .data("task");
-      window.location.href = "/dis?type_id=" + currentTask.id;
-    }
-  
-    // This function displays a message when there are no tasks
-    function displayEmpty(id) {
-      var query = window.location.search;
-      var partial = "";
-      if (id) {
-        partial = " for User #" + id;
-      }
-      taskContainer.empty();
-      var messageH2 = $("<h2>");
-      messageH2.css({ "text-align": "center", "margin-top": "50px" });
-      messageH2.html("No posts yet" + partial + ", navigate <a href='/dis" + query +
-      "'>here</a> in order to get started.");
-      taskContainer.append(messageH2);
-    }
-  
-  });
-  
+  }
+});  

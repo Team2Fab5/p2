@@ -80,8 +80,8 @@ module.exports = function (app, passport) {
       failureRedirect: "404"
     })
   );
-  app.get("/users", authController.tasks);
-  app.get("/tasks", authController.dis);
+  app.get("/users", authController.users);
+  app.get("/tasks", authController.tasks);
 
   app.post(
     "/signin",

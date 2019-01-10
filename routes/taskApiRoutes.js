@@ -18,8 +18,8 @@ module.exports = function(app) {
     db.Type.findAll({
       where: query,
       include: [db.User]
-    }).then(function(dbTask) {
-      res.json(dbTask);
+    }).then(function(dbType) {
+      res.json(dbType);
     });
   });
   
@@ -33,15 +33,15 @@ module.exports = function(app) {
         id: req.params.id
       },
       include: [db.User]
-    }).then(function(dbTask) {
-      res.json(dbTask);
+    }).then(function(dbType) {
+      res.json(dbType);
     });
   });
 
   // post route for saving a new Type
   app.post("/api/tasks", function(req, res) {
-    db.Type.create(req.body).then(function(dbTask) {
-      res.json(dbTask);
+    db.Type.create(req.body).then(function(dbType) {
+      res.json(dbType);
     });
   });
 
@@ -51,8 +51,8 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(function(dbTask) {
-      res.json(dbTask);
+    }).then(function(dbType) {
+      res.json(dbType);
     });
   });
 
@@ -64,8 +64,8 @@ module.exports = function(app) {
         where: {
           id: req.body.id
         }
-      }).then(function(dbTask) {
-      res.json(dbTask);
+      }).then(function(dbType) {
+      res.json(dbType);
     });
   });
 };

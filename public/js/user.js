@@ -20,7 +20,7 @@ $(document).ready(function() {
       }
       // Calling the upsertUser function and passing in the value of the name input
       upsertUser({
-        username: nameInput
+        name: nameInput
           .val()
           .trim()
       });
@@ -36,7 +36,7 @@ $(document).ready(function() {
     function createUserRow(userData) {
       var newTr = $("<tr>");
       newTr.data("user", userData);
-      newTr.append("<td>" + userData.username + "</td>");
+      newTr.append("<td>" + userData.name + "</td>");
       if (userData.Types) {
         newTr.append("<td> " + userData.Types.length + "</td>");
       } else {

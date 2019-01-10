@@ -18,7 +18,7 @@ var API = {
   },
   saveTask: function(task) {
     return $.ajax({
-      headr: {
+      header: {
         "Content-Type": "application/json"
       },
       type: "POST",
