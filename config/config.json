@@ -3,8 +3,8 @@
     "username": "teamuser",
     "password": "root",
     "database": "p2",
-    "host": "localhost",
     "PORT": 3000,
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
