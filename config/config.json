@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "teamuser",
-    "password": "root",
-    "database": "p2",
+    "username": "pvd7aly6xa64bv8s",
+    "password": "tu71ate32ik7n46e",
+    "database": "qoefucuiw95ho144",
     "PORT": 3000,
-    "host": "localhost",
+    "host": "ysp9sse09kl0tzxj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
