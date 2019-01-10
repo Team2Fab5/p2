@@ -1,10 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
-  var requested_task = sequelize.define("requested_task", {
-    taskTypeId: DataTypes.INTEGER,
+  var Requested_task = sequelize.define("Requested_task", {
+    taskType: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     points: DataTypes.INTEGER,
     taskStatus: DataTypes.INTEGER,
     actionDate: DataTypes.DATE
   });
-  return requested_task;
+
+  return Requested_task;
 };

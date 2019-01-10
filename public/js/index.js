@@ -16,6 +16,16 @@ var API = {
       data: JSON.stringify(example)
     });
   },
+  saveTask: function(task) {
+    return $.ajax({
+      header: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/tasks",
+      data: JSON.stringify(task)
+    });
+  },
   getExamples: function() {
     return $.ajax({
       url: "api/",

@@ -43,15 +43,11 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-require("./routes/htmlRoutes")(app, passport);
-
-require("./routes/apiRoutes")(app);
-
-
-
 //Routes
-
-// app.use('/', routes);
+require("./routes/htmlRoutes")(app, passport);
+require("./routes/apiRoutes")(app);
+require("./routes/taskApiRoutes")(app, db.Type);
+require("./routes/userApiRoutes")(app, db.User);
 
 //load passport strategies
 require("./config/passport.js")(passport, db.User);

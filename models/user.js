@@ -8,14 +8,13 @@ module.exports = function (sequelize, DataTypes) {
     email: DataTypes.STRING,
     password: DataTypes.STRING
   });
-  // User.associate = function (models) {
-  //   User.hasMany(models.User, {
-  //     as: "Neighbors",
-  //     foreignKey: "NeighborId"
-  //   });
-  //   User.belongsToMany(models.User, {
-  //     through: "Neighbors"
-  //   })
-  // };
+
+  User.associate = function(models) {
+    // Associating User with Types
+    // When an User is deleted, also delete any associated Types
+    User.hasMany(models.Type, {
+      onDelete: "cascade"
+    });
+  };
   return User;
 };
